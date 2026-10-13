@@ -1,0 +1,514 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* REQUIRED PALETTE TOKENS (LIGHT MODE) */
+    --color-bg: #F5F0E6;
+    --color-card: #FFFDF8;
+    --color-text-primary: #263238;
+    --color-text-secondary: #4F5961;
+    --color-text-muted: #68747C;
+    --color-accent: #4F7CAC;
+    --color-accent-warm: #C58B3A;
+
+    --btn-primary-bg: #C58B3A;
+    --btn-primary-hover: #b0782f;
+    --btn-primary-text: #263238;
+
+    --btn-secondary-border: #263238;
+    --btn-secondary-text: #263238;
+  }
+
+  .dark,
+  [data-theme="dark"] {
+    --color-bg: #12181B;
+    --color-card: #192227;
+    --color-text-primary: #FFFDF8;
+    --color-text-secondary: #D8D3C8;
+    --color-text-muted: #9EADB6;
+    --color-accent: #7CA2D6;
+    --color-accent-warm: #E5A955;
+
+    --btn-primary-bg: #E5A955;
+    --btn-primary-hover: #F0BC6D;
+    --btn-primary-text: #12181B;
+
+    --btn-secondary-border: #E5A955;
+    --btn-secondary-text: #E5A955;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    background-color: #F5F0E6;
+    color: #263238;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #F5F0E6;
+    color: #263238;
+  }
+
+  /* HEADINGS MUST USE PRIMARY DARK TEXT (#263238) IN LIGHT MODE */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: #263238;
+  }
+
+  /* DEFAULT PARAGRAPH TEXT USES SECONDARY DARK TEXT (#4F5961) IN LIGHT MODE */
+  p {
+    color: #4F5961;
+  }
+
+  code, pre {
+    font-family: var(--font-mono);
+  }
+
+  /* Clean subtle scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F5F0E6;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(38, 50, 56, 0.25);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(38, 50, 56, 0.45);
+  }
+}
+
+/* Exact requested profile photo rules */
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  filter: none;
+  opacity: 1;
+}
+
+/* Subtle paper texture effect */
+.paper-bg {
+  background-color: #F5F0E6;
+}
+
+.card-cream {
+  background-color: #FFFDF8;
+  border: 1px solid rgba(38, 50, 56, 0.12);
+  box-shadow: 0 4px 20px -2px rgba(38, 50, 56, 0.05);
+}
+
+/* ==========================================================================
+   GLOBAL LIGHT MODE ENFORCEMENT
+   Guarantees all text elements on light/cream backgrounds use rich dark colors.
+   NEVER allows white or faded text on light backgrounds.
+   ========================================================================== */
+
+html:not(.dark) {
+  color: #263238;
+}
+
+html:not(.dark) body {
+  background-color: #F5F0E6;
+  color: #263238;
+}
+
+/* Headings in Light Mode default to Primary text: #263238 */
+html:not(.dark) h1:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *),
+html:not(.dark) h2:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *),
+html:not(.dark) h3:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *),
+html:not(.dark) h4:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *),
+html:not(.dark) h5:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *),
+html:not(.dark) h6:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *) {
+  color: #263238 !important;
+}
+
+/* Paragraphs in Light Mode default to Secondary text: #4F5961 */
+html:not(.dark) p:not(#navbar-header *):not(footer *):not(.bg-\[\#263238\] *) {
+  color: #4F5961 !important;
+}
+
+/* Hero Section specifics */
+html:not(.dark) #hero-brand-heading {
+  color: #263238 !important;
+}
+
+html:not(.dark) #hero-intro-text {
+  color: #4F5961 !important;
+}
+
+/* Primary text in Light Mode: #263238 */
+html:not(.dark) .text-\[\#263238\],
+html:not(.dark) .text-\[\#141C20\] {
+  color: #263238 !important;
+}
+
+/* Secondary/Body text in Light Mode: #4F5961 */
+html:not(.dark) .text-\[\#4F5961\],
+html:not(.dark) .text-\[\#1D272C\],
+html:not(.dark) .text-\[\#222E34\],
+html:not(.dark) .text-\[\#263238\]\/85,
+html:not(.dark) .text-\[\#263238\]\/80,
+html:not(.dark) .text-\[\#263238\]\/75,
+html:not(.dark) .text-\[\#263238\]\/70 {
+  color: #4F5961 !important;
+}
+
+/* Muted text in Light Mode: #68747C */
+html:not(.dark) .text-\[\#68747C\],
+html:not(.dark) .text-\[\#263238\]\/60,
+html:not(.dark) .text-\[\#263238\]\/50,
+html:not(.dark) .text-\[\#263238\]\/40 {
+  color: #68747C !important;
+}
+
+/* Accent in Light Mode: #4F7CAC */
+html:not(.dark) .text-\[\#4F7CAC\] {
+  color: #4F7CAC !important;
+}
+
+/* Warm Accent in Light Mode: #C58B3A */
+html:not(.dark) .text-\[\#C58B3A\] {
+  color: #C58B3A !important;
+}
+
+/* Primary action buttons in Light Mode:
+   Dark text (#263238) on warm accent (#C58B3A) */
+html:not(.dark) #hero-btn-view-work {
+  background-color: #C58B3A !important;
+  color: #263238 !important;
+}
+
+html:not(.dark) #hero-btn-view-work:hover {
+  background-color: #b0782f !important;
+  color: #263238 !important;
+}
+
+/* Secondary action buttons in Light Mode:
+   Dark text (#263238) with dark border (#263238) */
+html:not(.dark) #hero-btn-download-resume,
+html:not(.dark) #resume-section-download-btn {
+  border-color: #263238 !important;
+  color: #263238 !important;
+  background-color: transparent !important;
+}
+
+html:not(.dark) #hero-btn-download-resume:hover,
+html:not(.dark) #resume-section-download-btn:hover {
+  background-color: rgba(38, 50, 56, 0.06) !important;
+  color: #263238 !important;
+}
+
+/* Contact form inputs in Light Mode */
+html:not(.dark) input,
+html:not(.dark) textarea {
+  color: #263238 !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+  color: #68747C !important;
+}
+
+/* Ensure Deep Slate container text retains proper high-contrast light colors in Light Mode */
+html:not(.dark) #navbar-header {
+  background-color: #263238;
+}
+
+html:not(.dark) #navbar-header a#brand-logo-link span {
+  color: #FFFDF8 !important;
+}
+
+html:not(.dark) #navbar-header nav a:not(.text-\[\#C58B3A\]) {
+  color: rgba(255, 253, 248, 0.85) !important;
+}
+
+html:not(.dark) #navbar-header nav a:hover {
+  color: #FFFDF8 !important;
+}
+
+html:not(.dark) #navbar-header nav a.text-\[\#C58B3A\] {
+  color: #C58B3A !important;
+}
+
+html:not(.dark) footer {
+  background-color: #263238;
+  color: #FFFDF8;
+}
+
+html:not(.dark) footer span,
+html:not(.dark) footer div {
+  color: #FFFDF8;
+}
+
+html:not(.dark) footer p {
+  color: rgba(255, 253, 248, 0.75) !important;
+}
+
+html:not(.dark) footer .text-\[\#C58B3A\] {
+  color: #C58B3A !important;
+}
+
+html:not(.dark) .bg-\[\#263238\] h4,
+html:not(.dark) .bg-\[\#263238\] h3,
+html:not(.dark) .bg-\[\#263238\] p,
+html:not(.dark) .bg-\[\#263238\] span {
+  color: #FFFDF8;
+}
+
+html:not(.dark) .bg-\[\#263238\] .text-\[\#C58B3A\] {
+  color: #C58B3A !important;
+}
+
+/* ==========================================================================
+   HIGH-CONTRAST DARK MODE (Only active when .dark is present)
+   Deep Slate Foundation: #12181B / #192227 / #263238
+   High-Contrast Warm Cream: #FFFDF8 / #D8D3C8 / #9EADB6
+   Luminous Gold Accent: #E5A955 / #C58B3A
+   Crisp Slate Blue: #7CA2D6 / #4F7CAC
+   ========================================================================== */
+
+.dark,
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+.dark html,
+.dark body {
+  background-color: #12181B !important;
+  color: #FFFDF8 !important;
+}
+
+/* Background mappings */
+.dark .bg-\[\#F5F0E6\] {
+  background-color: #12181B !important;
+}
+
+.dark .bg-\[\#FFFDF8\] {
+  background-color: #192227 !important;
+}
+
+.dark .card-cream {
+  background-color: #192227 !important;
+  border-color: rgba(255, 253, 248, 0.15) !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark .paper-bg {
+  background-color: #12181B !important;
+}
+
+/* Dark mode text mappings */
+.dark .text-\[\#263238\],
+.dark .text-\[\#141C20\] {
+  color: #FFFDF8 !important;
+}
+
+.dark .text-\[\#4F5961\],
+.dark .text-\[\#1D272C\],
+.dark .text-\[\#222E34\],
+.dark .text-\[\#263238\]\/85,
+.dark .text-\[\#263238\]\/80,
+.dark .text-\[\#263238\]\/75,
+.dark .text-\[\#263238\]\/70 {
+  color: #D8D3C8 !important;
+}
+
+.dark .text-\[\#68747C\],
+.dark .text-\[\#263238\]\/60,
+.dark .text-\[\#263238\]\/50,
+.dark .text-\[\#263238\]\/40 {
+  color: #9EADB6 !important;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: #FFFDF8 !important;
+}
+
+.dark p {
+  color: #D8D3C8 !important;
+}
+
+/* Headings with id */
+.dark #hero-brand-heading {
+  color: #FFFDF8 !important;
+}
+
+/* Borders in Dark Mode */
+.dark .border-\[\#263238\]\/18,
+.dark .border-\[\#263238\]\/15,
+.dark .border-\[\#263238\]\/12,
+.dark .border-\[\#263238\]\/10,
+.dark .border-\[\#263238\]\/20 {
+  border-color: rgba(255, 253, 248, 0.16) !important;
+}
+
+.dark .border-b-\[\#263238\]\/10,
+.dark .border-t-\[\#263238\]\/10,
+.dark .border-t-\[\#263238\]\/12,
+.dark .border-y-\[\#263238\]\/10 {
+  border-color: rgba(255, 253, 248, 0.14) !important;
+}
+
+/* Gold Accents in Dark Mode */
+.dark .text-\[\#C58B3A\] {
+  color: #E5A955 !important;
+}
+
+.dark .bg-\[\#C58B3A\] {
+  background-color: #E5A955 !important;
+}
+
+.dark .border-\[\#C58B3A\] {
+  border-color: #E5A955 !important;
+}
+
+.dark .border-\[\#C58B3A\]\/30,
+.dark .border-\[\#C58B3A\]\/60 {
+  border-color: rgba(229, 169, 85, 0.45) !important;
+}
+
+/* Ice Blue Accents in Dark Mode */
+.dark .text-\[\#4F7CAC\] {
+  color: #7CA2D6 !important;
+}
+
+/* Tags and badge backgrounds in Dark Mode */
+.dark .bg-\[\#263238\]\/\[0\.05\],
+.dark .bg-\[\#263238\]\/\[0\.06\],
+.dark .bg-\[\#263238\]\/5,
+.dark .bg-\[\#263238\]\/10 {
+  background-color: rgba(255, 253, 248, 0.08) !important;
+  border-color: rgba(255, 253, 248, 0.18) !important;
+}
+
+/* Solid primary action buttons in Dark Mode */
+.dark .btn-primary,
+.dark #hero-btn-view-work,
+.dark #resume-section-view-btn {
+  background-color: #E5A955 !important;
+  color: #12181B !important;
+  box-shadow: 0 4px 14px rgba(229, 169, 85, 0.3) !important;
+}
+
+.dark .btn-primary:hover,
+.dark #hero-btn-view-work:hover,
+.dark #resume-section-view-btn:hover {
+  background-color: #F0BC6D !important;
+  color: #0E1417 !important;
+}
+
+/* Secondary outline buttons in Dark Mode */
+.dark #hero-btn-download-resume,
+.dark #resume-section-download-btn {
+  border-color: #E5A955 !important;
+  color: #E5A955 !important;
+}
+
+.dark #hero-btn-download-resume:hover,
+.dark #resume-section-download-btn:hover {
+  background-color: rgba(229, 169, 85, 0.15) !important;
+  color: #FFFDF8 !important;
+}
+
+/* Secondary card buttons (e.g. GitHub link in cards) in Dark Mode */
+.dark a.bg-\[\#FFFDF8\],
+.dark button.bg-\[\#FFFDF8\] {
+  background-color: #232E35 !important;
+  color: #FFFDF8 !important;
+  border-color: rgba(255, 253, 248, 0.2) !important;
+}
+
+.dark a.bg-\[\#FFFDF8\]:hover,
+.dark button.bg-\[\#FFFDF8\]:hover {
+  background-color: #2B3840 !important;
+  border-color: #E5A955 !important;
+}
+
+/* Form input elements in Dark Mode */
+.dark input.bg-\[\#F5F0E6\],
+.dark textarea.bg-\[\#F5F0E6\] {
+  background-color: #141C20 !important;
+  color: #FFFDF8 !important;
+  border-color: rgba(255, 253, 248, 0.2) !important;
+}
+
+.dark input.bg-\[\#F5F0E6\]::placeholder,
+.dark textarea.bg-\[\#F5F0E6\]::placeholder {
+  color: #8B9DA6 !important;
+}
+
+.dark input.bg-\[\#F5F0E6\]:focus,
+.dark textarea.bg-\[\#F5F0E6\]:focus {
+  border-color: #E5A955 !important;
+  box-shadow: 0 0 0 1px #E5A955 !important;
+}
+
+/* Navbar in Dark Mode */
+.dark #navbar-header {
+  background-color: #0D1316 !important;
+  border-bottom-color: rgba(255, 253, 248, 0.12) !important;
+}
+
+.dark #mobile-nav-drawer {
+  background-color: #0D1316 !important;
+  border-bottom-color: rgba(255, 253, 248, 0.12) !important;
+}
+
+/* Footer in Dark Mode */
+.dark footer {
+  background-color: #0B1012 !important;
+  border-top-color: rgba(255, 253, 248, 0.1) !important;
+}
+
+/* Modal in Dark Mode */
+.dark #project-case-study-dialog {
+  background-color: #161F24 !important;
+  border-color: rgba(255, 253, 248, 0.2) !important;
+}
+
+.dark #project-case-study-dialog > div:first-child {
+  background-color: #192227 !important;
+  border-bottom-color: rgba(255, 253, 248, 0.15) !important;
+}
+
+.dark #project-case-study-dialog > div:last-child {
+  background-color: #192227 !important;
+  border-top-color: rgba(255, 253, 248, 0.15) !important;
+}
+
+/* Scrollbar in Dark Mode */
+.dark ::-webkit-scrollbar-track {
+  background: #12181B !important;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 253, 248, 0.2) !important;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(229, 169, 85, 0.5) !important;
+}
